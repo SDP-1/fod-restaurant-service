@@ -1,5 +1,6 @@
 package com.fod.restaurant_service.client;
 
+import com.fod.restaurant_service.dto.OrderResponseDTO;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,8 @@ public interface OrderClient {
 
     //example
     //remove this
-    @GetMapping("/order/{order-id}")
+    @GetMapping("/api/orders/restaurant/{restaurantId}")
     @LoadBalanced
-    List<String> findAllOdersById(@PathVariable("order-id") int orderId);
+    List<OrderResponseDTO> getOrdersByRestaurantId(@PathVariable("restaurantId") String orderId);
 
 }
