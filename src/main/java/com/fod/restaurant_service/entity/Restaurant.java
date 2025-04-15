@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,7 +29,7 @@ public class Restaurant extends GenaralModel {
     private Integer estimatedDeliveryTime; // Minutes (e.g., 30)
     private Double deliveryFee; // Fee (e.g., 3.99)
     private List<String> operatingHours; // E.g., ["Mon-Sun: 11AM-10PM"]
-    private String imageUrl; // Restaurant logo/photo (e.g., "https://cdn.example.com/spicyhaven.jpg")
+    private List<String> imageUrls = new ArrayList<>();
     private Boolean isPromoted; // Promotional status (e.g., true for sponsored listings)
     private List<String> dietaryPreferences; // E.g., ["VEGAN", "GLUTEN_FREE"]
 }
