@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +25,7 @@ public class MenuItem extends GenaralModel {
     private Double price; // Price (e.g., 12.99)
     private ItemCategory category; // E.g., MAIN_COURSE
     private boolean isAvailable; // Stock status (e.g., true)
-    private String imageUrl; // Item photo (e.g., "https://cdn.example.com/butterchicken.jpg")
+    private List<String> imageUrls = new ArrayList<>(); // Multiple images (e.g., ["https://cdn.example.com/butterchicken1.jpg", "https://cdn.example.com/butterchicken2.jpg"])
     private List<String> dietaryTags; // E.g., ["SPICY", "GLUTEN_FREE"]
     private Integer calories; // Nutritional info (e.g., 600)
     private List<String> customizationOptions; // E.g., ["Mild", "Medium", "Spicy"]

@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,7 +36,7 @@ public class MenuItemRequestDTO {
     @NotNull(message = "Availability is required")
     private Boolean isAvailable;
 
-    private String imageUrl;
+    private List<String> imageUrls;
 
     private List<String> dietaryTags;
 

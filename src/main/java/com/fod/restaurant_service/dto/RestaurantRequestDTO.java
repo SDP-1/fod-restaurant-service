@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -43,7 +45,7 @@ public class RestaurantRequestDTO {
     @Positive(message = "Estimated delivery time must be positive")
     private Integer estimatedDeliveryTime;
 
-    private String imageUrl;
+    private List<String> imageUrls;
 
     private Boolean isPromoted;
 

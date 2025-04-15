@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class RestaurantResponseDTO {
     private Integer estimatedDeliveryTime;
     private Double deliveryFee;
     private List<String> operatingHours;
-    private String imageUrl;
+    private List<String> imageUrls;
     private Boolean isPromoted;
     private List<String> dietaryPreferences;
     private Date createdAt;

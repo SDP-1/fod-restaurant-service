@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class MenuItemResponseDTO {
     private Double price;
     private ItemCategory category;
     private boolean isAvailable;
-    private String imageUrl;
+    private List<String> imageUrls;
     private List<String> dietaryTags;
     private Integer calories;
     private List<String> customizationOptions;
