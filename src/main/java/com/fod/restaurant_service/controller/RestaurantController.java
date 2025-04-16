@@ -35,7 +35,7 @@ public class RestaurantController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/admin")
+    @GetMapping()
     public ResponseEntity<List<RestaurantResponseDTO>> getAllRestaurants() {
         List<RestaurantResponseDTO> restaurants = restaurantService.getAllRestaurants();
         return ResponseEntity.ok(restaurants);
