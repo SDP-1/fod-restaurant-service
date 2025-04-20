@@ -30,6 +30,7 @@ public class Restaurant extends GenaralModel {
     private Double deliveryFee; // Fee (e.g., 3.99)
     private List<String> operatingHours; // E.g., ["Mon-Sun: 11AM-10PM"]
     private List<String> imageUrls = new ArrayList<>();
+    private String LogoUrl; // RestaurantLogo
     private Boolean isPromoted; // Promotional status (e.g., true for sponsored listings)
     private List<String> dietaryPreferences; // E.g., ["VEGAN", "GLUTEN_FREE"]
 }
