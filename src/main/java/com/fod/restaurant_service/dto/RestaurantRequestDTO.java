@@ -47,6 +47,8 @@ public class RestaurantRequestDTO {
 
     private List<String> imageUrls;
 
+    private String logoUrl;
+
     private Boolean isPromoted;
 
     private List<String> dietaryPreferences;
