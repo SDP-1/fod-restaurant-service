@@ -49,6 +49,19 @@ public class MenuItemService {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getMenuItemsCategorysByRestaurantId( String restaurantId) {
+        if (!restaurantRepository.existsById(restaurantId)) {
+            throw new IllegalArgumentException("Restaurant not found: " + restaurantId);
+        }
+
+        return menuItemRepository.findByRestaurantId(restaurantId)
+                .stream()
+                .map(MenuItem::getCategory)       // extract ItemCategory
+                .distinct()                       // remove duplicates
+                .map(Enum::name)                  // convert to String
+                .collect(Collectors.toList());
+    }
+
     public List<MenuItemResponseDTO> getMenuItemsByRestaurant(String restaurantId) {
         if (!restaurantRepository.existsById(restaurantId)) {
             throw new IllegalArgumentException("Restaurant not found: " + restaurantId);
