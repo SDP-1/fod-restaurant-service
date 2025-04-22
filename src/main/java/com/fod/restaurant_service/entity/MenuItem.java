@@ -24,10 +24,11 @@ public class MenuItem extends GenaralModel {
     private String description; // Details (e.g., "Creamy tomato-based curry with tender chicken")
     private Double price; // Price (e.g., 12.99)
     private ItemCategory category; // E.g., MAIN_COURSE
-    private boolean isAvailable; // Stock status (e.g., true)
+    private boolean available; // Stock status (e.g., true)
     private List<String> imageUrls = new ArrayList<>(); // Multiple images (e.g., ["https://cdn.example.com/butterchicken1.jpg", "https://cdn.example.com/butterchicken2.jpg"])
     private List<String> dietaryTags; // E.g., ["SPICY", "GLUTEN_FREE"]
     private Integer calories; // Nutritional info (e.g., 600)
     private List<String> customizationOptions; // E.g., ["Mild", "Medium", "Spicy"]
     private Double discountPrice; // Promotional price (e.g., 10.99)
+    private Integer preparationTime; // in minutes
 }

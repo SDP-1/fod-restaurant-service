@@ -2,10 +2,12 @@ package com.fod.restaurant_service.service;
 
 import com.fod.restaurant_service.dto.MenuItemRequestDTO;
 import com.fod.restaurant_service.dto.MenuItemResponseDTO;
+import com.fod.restaurant_service.dto.ReviewResponseDTO;
 import com.fod.restaurant_service.entity.MenuItem;
 import com.fod.restaurant_service.entity.Enum.ItemCategory;
 import com.fod.restaurant_service.repository.MenuItemRepository;
 import com.fod.restaurant_service.repository.RestaurantRepository;
+import com.fod.restaurant_service.repository.ReviewRepository;
 import com.netflix.discovery.converters.Auto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,6 +28,8 @@ public class MenuItemService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public MenuItemResponseDTO createMenuItem(MenuItemRequestDTO requestDTO) {
         if (!restaurantRepository.existsById(requestDTO.getRestaurantId())) {
@@ -39,13 +43,13 @@ public class MenuItemService {
 
     public Optional<MenuItemResponseDTO> getMenuItemById(String id) {
         return menuItemRepository.findById(id)
-                .map(menuItem -> modelMapper.map(menuItem, MenuItemResponseDTO.class));
+                .map(this::convertToMenuItemResponseDTO);
     }
 
     public List<MenuItemResponseDTO> getAllMenuItems() {
         return menuItemRepository.findAll()
                 .stream()
-                .map(menuItem -> modelMapper.map(menuItem, MenuItemResponseDTO.class))
+                .map(this::convertToMenuItemResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -68,7 +72,7 @@ public class MenuItemService {
         }
         return menuItemRepository.findByRestaurantId(restaurantId)
                 .stream()
-                .map(menuItem -> modelMapper.map(menuItem, MenuItemResponseDTO.class))
+                .map(this::convertToMenuItemResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -78,7 +82,7 @@ public class MenuItemService {
         }
         return menuItemRepository.findByRestaurantIdAndCategory(restaurantId, category)
                 .stream()
-                .map(menuItem -> modelMapper.map(menuItem, MenuItemResponseDTO.class))
+                .map(this::convertToMenuItemResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -95,6 +99,17 @@ public class MenuItemService {
         }
         return null;
     }
+
+    private MenuItemResponseDTO convertToMenuItemResponseDTO(MenuItem menuItem) {
+        MenuItemResponseDTO dto = modelMapper.map(menuItem, MenuItemResponseDTO.class);
+        dto.setReviews(
+                reviewRepository.findByTargetId(menuItem.getId()).stream()
+                        .map(review -> modelMapper.map(review, ReviewResponseDTO.class))
+                        .collect(Collectors.toList())
+        );
+        return dto;
+    }
+
 
     public void deleteMenuItem(String id) {
         menuItemRepository.deleteById(id);
