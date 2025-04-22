@@ -1,5 +1,6 @@
 package com.fod.restaurant_service.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fod.restaurant_service.entity.Enum.ItemCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -47,4 +48,6 @@ public class MenuItemRequestDTO {
 
     @PositiveOrZero(message = "Discount price must be non-negative")
     private Double discountPrice;
+
+    private Integer preparationTime;
 }

@@ -30,4 +30,6 @@ public class MenuItemResponseDTO {
     private Date createdAt;
     private Date updatedAt;
     private boolean isActive;
+    private Integer preparationTime;
+    private List<ReviewResponseDTO> reviews;
 }
