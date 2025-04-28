@@ -52,4 +52,5 @@ public class RestaurantRequestDTO {
     private Boolean isPromoted;
 
     private List<String> dietaryPreferences;
+    private Boolean active;
 }
