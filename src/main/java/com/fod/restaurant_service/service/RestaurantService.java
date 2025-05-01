@@ -1,5 +1,7 @@
 package com.fod.restaurant_service.service;
 
+import com.fod.restaurant_service.client.OrderClient;
+import com.fod.restaurant_service.dto.OrderResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class RestaurantService {
 
     @Autowired
     private  ModelMapper modelMapper;
+
+    @Autowired
+    private OrderClient orderClient;
 
     public RestaurantResponseDTO createRestaurant(RestaurantRequestDTO requestDTO) {
         Restaurant restaurant = modelMapper.map(requestDTO, Restaurant.class);
@@ -73,4 +78,22 @@ public class RestaurantService {
     public void deleteRestaurant(String id) {
         restaurantRepository.deleteById(id);
     }
+    public List<OrderResponseDTO> getOrdersByRestaurantId(String restaurantId){
+        return orderClient.getOrdersByRestaurantId(restaurantId);
+    }
+    public OrderResponseDTO updateOrderStatus(String orderId, String newStatus) {
+        return orderClient.updateOrderStatus(orderId, newStatus);
+    }
+    public boolean updateRestaurantStatus(String id, boolean active) {
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(id);
+        if (optionalRestaurant.isPresent()) {
+            Restaurant restaurant = optionalRestaurant.get();
+            restaurant.setActive(active);
+            restaurantRepository.save(restaurant);
+            return true;
+        }
+        return false;
+    }
+
 }
+

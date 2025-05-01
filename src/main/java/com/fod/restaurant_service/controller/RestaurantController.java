@@ -1,5 +1,6 @@
 package com.fod.restaurant_service.controller;
 
+import com.fod.restaurant_service.dto.OrderResponseDTO;
 import com.fod.restaurant_service.dto.RestaurantRequestDTO;
 import com.fod.restaurant_service.dto.RestaurantResponseDTO;
 import com.fod.restaurant_service.entity.Enum.CuisineType;
@@ -67,4 +68,25 @@ public class RestaurantController {
         restaurantService.deleteRestaurant(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/orders/restaurant/{restaurantId}")
+    public ResponseEntity<List<OrderResponseDTO>> getOrdersByRestaurantId(@PathVariable String restaurantId) {
+        List<OrderResponseDTO> orders = restaurantService.getOrdersByRestaurantId(restaurantId);
+        return ResponseEntity.ok(orders);
+    }
+    @PatchMapping("/orders/{orderId}/status/{newStatus}")
+    public ResponseEntity<OrderResponseDTO> updateOrderStatus(
+            @PathVariable String orderId,
+            @PathVariable String newStatus
+    ) {
+        OrderResponseDTO updated = restaurantService.updateOrderStatus(orderId, newStatus);
+        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    }
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Void> toggleRestaurantStatus(@PathVariable String id, @RequestParam boolean active) {
+        boolean updated = restaurantService.updateRestaurantStatus(id, active);
+        return updated ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+
+
 }

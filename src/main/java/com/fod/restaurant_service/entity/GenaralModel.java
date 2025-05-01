@@ -12,5 +12,5 @@ public class GenaralModel {
     private Date createdAt;
     @LastModifiedDate
     private Date updatedAt;
-    private boolean isActive = true;
+    private boolean isActive = false;
 }
