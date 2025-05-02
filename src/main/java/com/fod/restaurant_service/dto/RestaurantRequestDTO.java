@@ -19,6 +19,10 @@ public class RestaurantRequestDTO {
     @NotBlank(message = "Name is required")
     private String name;
 
+    @NotBlank(message = "Password is required")
+    @Size(min = 4, message = "Password must be at least 4 characters long")
+    private String password;
+
     @NotNull(message = "Address is required")
     @Valid
     private AddressDTO address;
