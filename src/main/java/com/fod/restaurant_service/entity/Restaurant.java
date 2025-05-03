@@ -20,6 +20,7 @@ public class Restaurant extends GenaralModel {
     @Id
     private String id; // Unique identifier (e.g., "rest_123")
     private String name; // Restaurant name (e.g., "Spicy Haven")
+    private String password; // Hashed password
     private Address address; // Physical location
     private CuisineType cuisineType; // E.g., INDIAN
     private String phoneNumber; // Contact (e.g., "+1-555-123-4567")

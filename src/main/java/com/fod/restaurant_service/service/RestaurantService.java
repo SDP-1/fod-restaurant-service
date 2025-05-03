@@ -4,6 +4,7 @@ import com.fod.restaurant_service.client.OrderClient;
 import com.fod.restaurant_service.dto.OrderResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.fod.restaurant_service.dto.RestaurantRequestDTO;
 import com.fod.restaurant_service.dto.RestaurantResponseDTO;
@@ -11,6 +12,7 @@ import com.fod.restaurant_service.entity.Restaurant;
 import com.fod.restaurant_service.entity.Enum.CuisineType;
 import com.fod.restaurant_service.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,14 +31,31 @@ public class RestaurantService {
     @Autowired
     private OrderClient orderClient;
 
+    @Autowired
+    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
     public RestaurantResponseDTO createRestaurant(RestaurantRequestDTO requestDTO) {
         Restaurant restaurant = modelMapper.map(requestDTO, Restaurant.class);
+
+        // Hash the password
+        String hashedPassword = passwordEncoder.encode(requestDTO.getPassword());
+        restaurant.setPassword(hashedPassword);
+
         restaurant.setActive(true);
         restaurant.setAverageRating(0.0);
         restaurant.setReviewCount(0);
+
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+        String emailUrl = "http://localhost:8091/api/notification/send-restaurant-registration?toEmail="
+                + requestDTO.getEmail();
+        restTemplate.getForObject(emailUrl, String.class);
+
         return modelMapper.map(savedRestaurant, RestaurantResponseDTO.class);
     }
+
 
     public Optional<RestaurantResponseDTO> getRestaurantById(String id) {
         return restaurantRepository.findById(id)
