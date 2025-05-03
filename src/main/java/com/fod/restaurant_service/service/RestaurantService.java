@@ -49,8 +49,7 @@ public class RestaurantService {
         restaurant.setReviewCount(0);
 
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
-
-        String emailUrl = "http://localhost:8091/api/notification/send-restaurant-registration=toEmail"
+        String emailUrl = "http://localhost:8091/api/notification/send-restaurant-registration?toEmail="
                 + requestDTO.getEmail();
         restTemplate.getForObject(emailUrl, String.class);
 
